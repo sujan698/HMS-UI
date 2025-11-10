@@ -208,7 +208,7 @@ export default function LoginPage() {
 
         {/* Footer Note */}
         <p className="text-center text-sm sm:text-base text-gray-500">
-          Don't have an account?{' '}
+          Don&apos;t have an account? 
           <a href="/" className="text-teal-600 hover:text-teal-700 font-medium transition-colors">
             Contact us to get started
           </a>

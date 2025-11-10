@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { AvatarProps } from '@/src/types'
 
 export default function Avatar({
@@ -41,19 +42,23 @@ export default function Avatar({
     const index = name.charCodeAt(0) % colors.length
     return colors[index]
   }
-
   if (image) {
     return (
-      <img
-        src={image}
-        alt={name || 'Avatar'}
+      <div
         className={`
           ${sizeClass}
-          rounded-full object-cover
+          rounded-full overflow-hidden relative
           ${className}
         `}
         {...props}
-      />
+      >
+        <Image
+          src={image}
+          alt={name || 'Avatar'}
+          fill
+          className="object-cover"
+        />
+      </div>
     )
   }
 
@@ -71,5 +76,5 @@ export default function Avatar({
       {getInitials(name)}
     </div>
   )
-}
 
+}

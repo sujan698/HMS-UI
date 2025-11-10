@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 interface Service {
   id: number
@@ -177,19 +178,21 @@ export default function LandingPage() {
                   <p className="text-sm lg:text-base text-gray-600 mt-1">Happy Patients</p>
                 </div>
               </div>
-            </motion.div>
             <motion.div 
-              className="rounded-xl overflow-hidden shadow-2xl"
+              className="rounded-xl overflow-hidden shadow-2xl relative"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <img 
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                alt="Hospital facility" 
-                className="w-full h-full object-cover"
+              <Image
+                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                alt="Hospital facility"
+                fill
+                className="object-cover"
+                priority
               />
+            </motion.div>
             </motion.div>
           </div>
         </div>
@@ -210,7 +213,7 @@ export default function LandingPage() {
                 Get In Touch
               </h2>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-                Have questions or want to schedule an appointment? We'd love to hear from you.
+                Have questions or want to schedule an appointment? We&apos;d love to hear from you.
               </p>
             </motion.div>
 
