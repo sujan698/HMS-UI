@@ -23,13 +23,13 @@ export default function Table({
           <thead className="bg-gray-50">
             <tr>
               {columns.map((column, index) => {
-                const columnKey = column.key || column.accessor || index.toString()
+                const columnKey = column.key || (typeof column.accessor === 'string' ? column.accessor : index.toString())
                 const columnLabel = column.label || column.header || ''
                 const align = column.align || 'left'
                 
                 return (
                   <th
-                    key={columnKey}
+                    key={typeof columnKey === 'function' ? index.toString() : String(columnKey)}
                     className={`
                       px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider
                       ${align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left'}
@@ -66,15 +66,20 @@ export default function Table({
                   {columns.map((column, colIndex) => {
                     const columnKey = column.key || column.accessor || colIndex.toString()
                     const align = column.align || 'left'
-                    const cellValue = column.accessor
-                      ? (typeof column.accessor === 'function'
-                          ? column.accessor(row)
-                          : row[column.accessor])
-                      : row[columnKey]
+                    const cellValue =
+                      column.accessor !== undefined
+                        ? (typeof column.accessor === 'function'
+                            ? column.accessor(row)
+                            : typeof column.accessor === 'string'
+                              ? row[column.accessor]
+                              : undefined)
+                        : (typeof columnKey === 'string'
+                            ? row[columnKey]
+                            : undefined)
                     
                     return (
                       <td
-                        key={columnKey}
+                        key={typeof columnKey === 'function' ? colIndex.toString() : String(columnKey)}
                         className={`
                           px-6 py-4 whitespace-nowrap text-sm text-gray-900
                           ${align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left'}
